@@ -1,20 +1,31 @@
-import { Button } from './components/button';
+import { useState } from 'react';
+
+import { MovingBlock } from './components/moving-block';
+import { getPosition } from './components/get-position';
 import { BunchOfStuff, OtherStuffAlsoComplicated } from './components/mocks';
 import { VerySlowComponent } from './components/very-slow-component';
-import { useModalDialog } from './components/useModalDialog';
 import './styles.css';
 
+// 🔴 PROBLEM VERSION
+// state (position) আর slow component গুলো একই জায়গায়।
+// প্রতিবার scroll → setPosition → পুরো App re-render → VerySlowComponent আবার 500ms wait
+// → scrolling ভয়ানক ল্যাগি।
 export default function App() {
-  // hook এখন App-এই — state App-এ বসছে
-  const { open, dialog } = useModalDialog();
+  const [position, setPosition] = useState(300);
+
+  const onScroll = (e) => {
+    const calculated = getPosition(e.target.scrollTop);
+    setPosition(calculated);
+  };
 
   return (
-    <>
-      <Button onClick={open}>Open dialog</Button>
-      {dialog}
+    <div className="scrollable-block" onScroll={onScroll}>
+      <MovingBlock position={position} />
       <VerySlowComponent />
       <BunchOfStuff />
+      <BunchOfStuff />
+      <BunchOfStuff />
       <OtherStuffAlsoComplicated />
-    </>
+    </div>
   );
 }

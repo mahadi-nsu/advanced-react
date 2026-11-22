@@ -1,3 +1,23 @@
+.scrollable-block {
+  position: relative;
+  height: 400px;
+  overflow: auto;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.moving-block {
+  position: absolute;
+  right: 1.5rem;
+  width: 11rem;
+  padding: 1rem;
+  background: #646cff;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 .bunch-of-stuff {
   background: lightblue;
   border: 1px solid rgba(0, 0, 255, 0.3);
